@@ -3,14 +3,28 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
+    xmlns:pe="http://primefaces.org/ui/extensions"
       xmlns:h="http://java.sun.com/jsf/html">
 
     <h:head>
         <title>PrimeFaces Test</title>
     </h:head>
     <h:body>
-
-        <h1>#{testView.testString}</h1>
+<h:form id="mainForm">
+  <pe:layout fullPage="true" id="layout">
+    <pe:layoutPane position="north">
+	<p:commandButton value="update center panel" actionListener="#{testView.changeCenter()}" update="@root:@id(center)" />
+	<p:commandButton value="update whole layout" actionListener="#{testView.changeCenter()}" update="@root:@id(layout)" />
+	<p:commandButton value="update form" actionListener="#{testView.changeCenter()}" update="@root:@id(mainForm)" />
+    </pe:layoutPane>
+    <pe:layoutPane position="west" size="320px">
+        <h1>WEST</h1>
+    </pe:layoutPane>
+    <pe:layoutPane position="center" id="center">
+      <ui:include src="#{testView.testString}" />
+    </pe:layoutPane>
+</pe:layout>
+</h:form>
 
     </h:body>
 </html>

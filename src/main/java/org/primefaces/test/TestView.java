@@ -13,8 +13,12 @@ public class TestView implements Serializable {
     
     @PostConstruct  
     public void init() {
-        testString = "Welcome to PrimeFaces!!!";
+        testString = "center.xhtml";
     }
+
+    public void changeCenter(){
+	testString = "center2.xhtml";
+}
 
     public String getTestString() {
         return testString;
