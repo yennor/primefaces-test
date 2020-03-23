@@ -1,16 +1,54 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-    <h:head>
-        <title>PrimeFaces Test</title>
-    </h:head>
-    <h:body>
 
-        <h1>#{testView.testString}</h1>
+<h:head>
+	<title>PrimeFaces Test</title>
+			<h:outputStylesheet name="css/primeflex/primeflex.css" />
 
-    </h:body>
+</h:head>
+<h:body>
+	<div jsf:id="emailListPanel" class="p-grid p-dir-col"
+		style="height: 100%">
+		<h3 style="margin-block-start: 0">Email lists</h3>
+<!-- 		also doesn't work when setting style to height: 100% on the following div -->
+		<div class="p-grid" style="flex: 1">
+			<p:dataTable scrollable="true" scrollHeight="100%"
+				value="#{testView.list}" var="emailList" selectionMode="single"
+				styleClass="tableLayoutAuto" rowKey="#{emailList.hashCode()}"
+				style="width: 250px">
+				<p:ajax event="rowSelect" update="" />
+				<p:column headerText="Email list" width="100%">
+					<h:outputText value="#{emailList}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<p:commandButton icon="pi pi-plus" style="background: green"
+							action="testView.add()" update="@root:@id(emailListPanel)" />
+					</f:facet>
+					<p:commandButton icon="pi pi-minus" style="background: red"
+						update="@root:@id(emailListPanel)" />
+				</p:column>
+			</p:dataTable>
+			<div class="p-grid p-dir-col">
+				<p:panelGrid id="companyData" columns="2" styleClass="ui-noborder">
+					<p:outputLabel value="Email list name" for="@next" />
+					<p:inputText value="#{emailList}" />
+				</p:panelGrid>
+				<div class="p-grid p-justify-center">
+					<p:commandButton value="add"
+						action="#{testView.add()}" update="@root:@id(emailListPanel)"/>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</h:body>
 </html>
+
+
