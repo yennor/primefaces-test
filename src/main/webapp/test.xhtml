@@ -13,35 +13,18 @@
 
 </h:head>
 <h:body style="height:100%">
-	<div jsf:id="emailListPanel" class="p-grid p-dir-col"
-		style="height: 100%">
-		<h3 style="margin-block-start: 0">Email lists</h3>
-		<!-- 		also doesn't work when setting style to height: 100% on the following div -->
-		<div class="p-grid" style="flex: 1">
-<!-- 			<p:selectOneListbox id="companyList" style="height: 100%"> -->
-<!-- 			</p:selectOneListbox> -->
-						<p:dataTable scrollable="true" scrollHeight="100%"
-							value="#{testView.list}" var="emailList" selectionMode="single"
-							rowKey="#{emailList.hashCode()}" style="width: 250px">
-							<p:ajax event="rowSelect" update="" />
-							<p:column headerText="Email list" width="100%">
-								<h:outputText value="#{emailList}" />
-							</p:column>
-						</p:dataTable>
-			<div class="p-grid p-dir-col">
-				<p:panelGrid id="companyData" columns="2" styleClass="ui-noborder">
-					<p:outputLabel value="Email list name" for="@next" />
-					<p:inputText value="#{emailList}" />
-				</p:panelGrid>
-				<div class="p-grid p-justify-center">
-					<p:commandButton value="add" action="#{testView.add()}"
-						update="@root:@id(emailListPanel)" />
-				</div>
-			</div>
-		</div>
-	</div>
-
-
+	<p:tree style="width: 320px"
+		value="#{testView.rootTreeNode}" var="node" dynamic="false"
+		selectionMode="checkbox">
+		<p:treeNode type="root">
+			<h:outputText value="Trials" />
+		</p:treeNode>
+		<p:treeNode type="node">
+			<h:outputText value="#{node}" />
+		</p:treeNode>
+	</p:tree>
+	<p:commandButton update="counter"/>
+	<h:outputText id="counter" value="The getter was called #{testView.getterCount} times"/>
 </h:body>
 </html>
 

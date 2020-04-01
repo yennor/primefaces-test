@@ -8,42 +8,39 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.model.CheckboxTreeNode;
+
 @Named
 @ViewScoped
 public class TestView implements Serializable {
 
-    private String testString;
+	private CheckboxTreeNode rootTreeNode;
+	private int getterCount = 0;
 
-    private List<String> list = new ArrayList<>();
-
-    public List<String> getList() {
-		return list;
+	public int getGetterCount() {
+		return getterCount;
 	}
 
-	public void setList(List<String> list) {
-		this.list = list;
+
+
+	public void setGetterCount(int getterCount) {
+		this.getterCount = getterCount;
 	}
+
+
 
 	@PostConstruct
     public void init() {
-        testString = "Welcome to PrimeFaces!!!";
-        for (int i = 0; i < 50; i++) {
-			list.add("a" + 1);
+		rootTreeNode = new CheckboxTreeNode("root");
+		for (int i = 0; i < 50; i++) {
+			new CheckboxTreeNode("node", i, rootTreeNode);
 		}
-    }
-
-	public void add() {
-        for (int i = 0; i < 50; i++) {
-			list.add("a" + 1);
-		}
-
 	}
 
-    public String getTestString() {
-        return testString;
-    }
 
-    public void setTestString(String testString) {
-        this.testString = testString;
-    }
+
+	public CheckboxTreeNode getRootTreeNode() {
+		getterCount ++;
+		return rootTreeNode;
+	}
 }
